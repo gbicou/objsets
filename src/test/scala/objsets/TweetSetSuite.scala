@@ -43,7 +43,13 @@ class TweetSetSuite extends FunSuite {
       assert(size(set5.filter(tw => tw.retweets == 20)) === 2)
     }
   }
-
+  
+  test("filter: false predicate") {
+    new TestSets {
+      assert(size(set5.filter(tw => tw.retweets == 100)) === 0)
+    }
+  }
+  
   test("union: set4c and set4d") {
     new TestSets {
       assert(size(set4c.union(set4d)) === 4)
@@ -62,6 +68,19 @@ class TweetSetSuite extends FunSuite {
     }
   }
 
+  test("union: set4d and set5") {
+    new TestSets {
+      assert(size(set4d.union(set5)) === 4)
+    }
+  }
+    
+  test("most retweeted: set5") {
+    new TestSets {
+      assert(set5.mostRetweeted.retweets == 20)
+      assert(set5.mostRetweeted.user == "a" || set5.mostRetweeted.user == "b")
+    }
+  }
+  
   test("descending: set5") {
     new TestSets {
       val trends = set5.descendingByRetweet
@@ -69,4 +88,6 @@ class TweetSetSuite extends FunSuite {
       assert(trends.head.user == "a" || trends.head.user == "b")
     }
   }
+  
+  
 }
